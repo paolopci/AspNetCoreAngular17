@@ -10,8 +10,16 @@ import { environment } from '../../environments/environment';
   styleUrl: './cities.component.scss'
 })
 export class CitiesComponent implements OnInit {
+  public cities!: City[];
+  constructor(private http: HttpClient) { }
+
+
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.http.get<City[]>(environment.baseUrl + 'api/Cities').subscribe({
+      next: (result) => {
+        this.cities = result;
+      }, error: (err) => console.error(err)
+    });
   }
 
 }
