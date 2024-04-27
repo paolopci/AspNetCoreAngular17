@@ -6,7 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {// per migliorare la leggibilità dell'output json nei browser che non sopportano la formattazione JSON automatica
+     //TODO: ++ la commento per non aver degrado delle prestazioni.
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
