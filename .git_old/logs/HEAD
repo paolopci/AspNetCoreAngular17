@@ -1,0 +1,24 @@
+0000000000000000000000000000000000000000 c784ff3d4ae3a7c8f25217b02365a5b6fbc8e070 PaoloPci <paolopci@yahoo.it> 1714124839 +0200
+c784ff3d4ae3a7c8f25217b02365a5b6fbc8e070 c7773900002cd01ca2bb64b178a92d2d9e3de4b4 PaoloPci <paolopci@yahoo.it> 1714124840 +0200	commit: init
+c7773900002cd01ca2bb64b178a92d2d9e3de4b4 c7773900002cd01ca2bb64b178a92d2d9e3de4b4 PaoloPci <paolopci@yahoo.it> 1714124909 +0200	checkout: moving from master to feature/Cap_5_Data_Model_with_Entity_Framework_Core
+c7773900002cd01ca2bb64b178a92d2d9e3de4b4 8d1eaeef7184a89274c93f3e384cda85661ae5a9 PaoloPci <paolopci@yahoo.it> 1714126771 +0200	commit: init
+8d1eaeef7184a89274c93f3e384cda85661ae5a9 0d4ece354ecc9d27ed6afec93d98aa098d3d1803 PaoloPci <paolopci@yahoo.it> 1714134543 +0200	commit: add image home.jpg
+0d4ece354ecc9d27ed6afec93d98aa098d3d1803 b42e0e2c1774beffa807b52ec98843a8b2bffa1a PaoloPci <paolopci@yahoo.it> 1714134865 +0200	commit (amend): add image home.jpg
+b42e0e2c1774beffa807b52ec98843a8b2bffa1a 9bb73a2fb539df84ff8f812890dee5f723e0a509 PaoloPci <paolopci@yahoo.it> 1714134989 +0200	commit: add new
+9bb73a2fb539df84ff8f812890dee5f723e0a509 d1ce9c16e2aab9c3bfd7120aa06084c47b73fef4 PaoloPci <paolopci@yahoo.it> 1714135374 +0200	commit: update gitignore
+d1ce9c16e2aab9c3bfd7120aa06084c47b73fef4 d1fc42be9698313fb348c5ece705502e1ec2d196 PaoloPci <paolopci@yahoo.it> 1714135471 +0200	commit: update gitignore
+d1fc42be9698313fb348c5ece705502e1ec2d196 91ba0f63664767f3b6841fad76fda169719d8a8c PaoloPci <paolopci@yahoo.it> 1714135542 +0200	commit: a
+91ba0f63664767f3b6841fad76fda169719d8a8c 88d896dad62c21eeee0ec74e8efe5ca17b65e4e3 PaoloPci <paolopci@yahoo.it> 1714137317 +0200	commit: add file csv and xlsx for db
+88d896dad62c21eeee0ec74e8efe5ca17b65e4e3 9787432dd06516d46061eb7bc08710c93c831bfb PaoloPci <paolopci@yahoo.it> 1714141727 +0200	commit: add cities and countries entity
+9787432dd06516d46061eb7bc08710c93c831bfb 74dd8a18cdd5552be78394a41682cca171e6a2b3 PaoloPci <paolopci@yahoo.it> 1714142458 +0200	commit: add connectionString in secret.json
+74dd8a18cdd5552be78394a41682cca171e6a2b3 266ca8575d5dbca8c36fa8e2cc511f8caa28de91 PaoloPci <paolopci@yahoo.it> 1714144349 +0200	commit: import dati in WorldCities database
+266ca8575d5dbca8c36fa8e2cc511f8caa28de91 4d0122bcd37da944d48978760b683eb963218d60 PaoloPci <paolopci@yahoo.it> 1714144957 +0200	commit: add Cities and Countries API Controllers
+4d0122bcd37da944d48978760b683eb963218d60 c7773900002cd01ca2bb64b178a92d2d9e3de4b4 PaoloPci <paolopci@yahoo.it> 1714144967 +0200	checkout: moving from feature/Cap_5_Data_Model_with_Entity_Framework_Core to develop
+c7773900002cd01ca2bb64b178a92d2d9e3de4b4 c7773900002cd01ca2bb64b178a92d2d9e3de4b4 PaoloPci <paolopci@yahoo.it> 1714145014 +0200	reset: moving to HEAD
+c7773900002cd01ca2bb64b178a92d2d9e3de4b4 4d0122bcd37da944d48978760b683eb963218d60 PaoloPci <paolopci@yahoo.it> 1714145015 +0200	checkout: moving from develop to feature/Cap_5_Data_Model_with_Entity_Framework_Core
+4d0122bcd37da944d48978760b683eb963218d60 79dca7b1e06f61c5308e9d7499e287cd5ad883ba PaoloPci <paolopci@yahoo.it> 1714145051 +0200	commit (amend): add Cities and Countries API Controllers
+79dca7b1e06f61c5308e9d7499e287cd5ad883ba c7773900002cd01ca2bb64b178a92d2d9e3de4b4 PaoloPci <paolopci@yahoo.it> 1714145058 +0200	checkout: moving from feature/Cap_5_Data_Model_with_Entity_Framework_Core to develop
+c7773900002cd01ca2bb64b178a92d2d9e3de4b4 51d1614e178ea5f7a2567922377980e5e0445df6 PaoloPci <paolopci@yahoo.it> 1714145058 +0200	merge feature/Cap_5_Data_Model_with_Entity_Framework_Core: Merge made by the 'recursive' strategy.
+51d1614e178ea5f7a2567922377980e5e0445df6 51d1614e178ea5f7a2567922377980e5e0445df6 PaoloPci <paolopci@yahoo.it> 1714145059 +0200	checkout: moving from develop to develop
+51d1614e178ea5f7a2567922377980e5e0445df6 51d1614e178ea5f7a2567922377980e5e0445df6 PaoloPci <paolopci@yahoo.it> 1714145161 +0200	checkout: moving from develop to feature/Cap_6_Fetching_and_Displaying_Data
+51d1614e178ea5f7a2567922377980e5e0445df6 ad09482df4b8429e348ce48fe592eede05728912 PaoloPci <paolopci@yahoo.it> 1714145464 +0200	commit: update gitignore

@@ -1,0 +1,22 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[taggrouping]
+	groups = 
+	singles = 
+[gitflow "branch"]
+	develop = develop
+	master = master
+[gitflow "prefix"]
+	feature = feature/
+	release = release/
+	hotfix = hotfix/
+	support = support/
+	versiontag = 
+[gitflow "branch.feature/Cap_6_Fetching_and_Displaying_Data"]
+	base = develop
+	baseId = 51d1614e178ea5f7a2567922377980e5e0445df6
