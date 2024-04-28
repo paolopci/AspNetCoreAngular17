@@ -2,6 +2,7 @@
     <h1>Cities</h1>
     <p>Here's a list of cities: feel free to play with it.</p>
     <p *ngIf="!cities"><em>Loading...</em></p>
+    <p *ngIf="!cities"><img src="assets/img/Loading30.gif" alt="animated Loading"></p>
     <table class="table table-bordered table-striped" [hidden]="!cities">
         <thead>
             <tr>
