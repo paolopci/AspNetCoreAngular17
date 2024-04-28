@@ -22,6 +22,7 @@ export class ChildComponent {
 
     // ViewChild
     this.render.setStyle(this.childheading.first.nativeElement, 'background-color', 'red');
+    this.render.addClass(this.childheading.last.nativeElement,"text-end");
     this.render.setStyle(this.childheading.last.nativeElement, 'background-color', 'green');
     this.render.setStyle(this.childheading.last.nativeElement, 'font-weight', 'bold');
     this.render.setStyle(this.childheading.last.nativeElement, 'color', 'white');
