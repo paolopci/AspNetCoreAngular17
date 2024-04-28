@@ -5,25 +5,6 @@
     <!-- <p *ngIf="!cities"><em>Loading...</em></p> -->
     <p *ngIf="!cities"><img src="/assets/img/Loading30.gif" alt="animated Loading"></p>
 
-   
-    <!-- <table class="table table-bordered table-striped" [hidden]="!cities" data-toolbar="#toolbar">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Lat</th>
-                <th>Lot</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of cities">
-                <td>{{item.id}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.lat}}</td>
-                <td>{{item.lon}}</td>
-            </tr>
-        </tbody>
-    </table> -->
     <table mat-table [dataSource]="cities" class="mat-elevation-z8" [hidden]="!cities">
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>ID</th>

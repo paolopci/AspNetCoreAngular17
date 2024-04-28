@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild, OnInit, ViewChildren, QueryList } from '@angular/core';
 
 @Component({
   selector: 'app-child',
@@ -7,18 +7,26 @@ import { Component, ElementRef, Renderer2, ViewChild, OnInit } from '@angular/co
 })
 export class ChildComponent {
 
-  @ViewChild('childheading') childheading!: ElementRef;
+  // @ViewChild('childheading') childheading!: ElementRef;
+  @ViewChildren('childheading') childheading!: QueryList<any>;
 
   // render può essere usato per cambiare le proprietà del DOM
   constructor(private render: Renderer2) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+  }
 
   ngAfterViewInit(): void {
     console.log(this.childheading);
 
     // ViewChild
-    this.render.setStyle(this.childheading.nativeElement, 'background-color', 'red');
+    this.render.setStyle(this.childheading.first.nativeElement, 'background-color', 'red');
+    this.render.setStyle(this.childheading.last.nativeElement, 'background-color', 'green');
+    this.render.setStyle(this.childheading.last.nativeElement, 'font-weight', 'bold');
+    this.render.setStyle(this.childheading.last.nativeElement, 'color', 'white');
   }
+
+
 
 }
