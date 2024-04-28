@@ -12,6 +12,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { CitiesComponent } from './cities/cities.component';
 // add Material Angular Module
 import { AngularMaterialModule } from './angular-material.module';
+import { ColorPickerModule } from 'ngx-color-picker';
+
 
 @NgModule({
   declarations: [
