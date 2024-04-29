@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq.Dynamic.Core;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WorldCities.Server.Data;
 using WorldCities.Server.Data.Models;
@@ -19,10 +20,16 @@ namespace WorldCities.Server.Controllers
         // GET: api/Cities
         [HttpGet]
         public async Task<ActionResult<ApiResult<City>>> GetCities(int pageIndex = 0, int pageSize = 10,
-                                                                   string? sortColumn = null, string? sortOrder = null)
+                                                                   string? sortColumn = null, string? sortOrder = null,
+                                                                   string? filterColumn = null, string? filterQuery = null)
         {
             var citiesList = _context.Cities.AsNoTracking();
-            return await ApiResult<City>.CreateAsync(citiesList, pageIndex, pageSize, sortColumn, sortOrder);
+            if (!string.IsNullOrEmpty(filterColumn) && !string.IsNullOrEmpty(filterQuery))
+            {
+                citiesList = citiesList.Where(c => c.Name.StartsWith(filterQuery));
+            }
+            return await ApiResult<City>.CreateAsync(citiesList, pageIndex, pageSize, sortColumn, 
+                                                       sortOrder, filterColumn, filterQuery);
         }
 
         // GET: api/Cities/5

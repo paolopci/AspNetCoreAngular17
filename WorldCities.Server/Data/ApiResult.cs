@@ -13,8 +13,10 @@ namespace WorldCities.Server.Data
         public int PageSize { get; private set; } // record x pagina
         public int TotalCount { get; private set; } // totale records in tabella
         public int TotalPages { get; private set; } // totale delle pagine
-        public string? SortColumn { get; set; }
-        public string? SortOrder { get; set; }
+        public string? SortColumn { get; set; } // Nome della colonna di ordinamento
+        public string? SortOrder { get; set; }  // tipo ordinamento "ASC" o "DESC"
+        public string? FilterColumn { get; set; } // per filtrare le città colonna di filtro
+        public string? FilterQuery { get; set; } // stringa da usare come filtro 
         public bool HasPrevisionPage
         {
             // Restituisce true se la pagine corrente ha una pagina precedente.
@@ -31,7 +33,8 @@ namespace WorldCities.Server.Data
         }
 
         private ApiResult(List<T> data, int totalCount, int pageIndex,
-                          int pageSize, string? sortColumn, string? sortOrder)
+                          int pageSize, string? sortColumn, string? sortOrder,
+                          string? filterColumn, string? filterQuery)
         {
             Data = data;
             PageIndex = pageIndex;
@@ -40,11 +43,22 @@ namespace WorldCities.Server.Data
             TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
             SortColumn = sortColumn;
             SortOrder = sortOrder;
+            FilterColumn = filterColumn;
+            FilterQuery = filterQuery;
         }
 
         public static async Task<ApiResult<T>> CreateAsync(IQueryable<T> source, int pageIndex, int pageSize,
-                                                            string? sortColumn = null, string? sortOrder = null)
+                                                            string? sortColumn = null, string? sortOrder = null,
+                                                            string? filterColumn = null, string? filterQuery = null)
         {
+
+            if (!string.IsNullOrEmpty(filterColumn) && !string.IsNullOrEmpty(filterQuery) && IsValidProperty(filterColumn))
+            {  // var result =Cities.Where(x=>x.Name.StartsWith("Pesar"));
+                source = source.Where(string.Format("{0}.StartsWith(@0)", filterColumn, filterQuery));
+            }
+
+
+
             var count = await source.CountAsync(); // ritorno il numero degli elementi della sequenza.
             if (!string.IsNullOrEmpty(sortColumn) && IsValidProperty(sortColumn))
             {
@@ -59,7 +73,9 @@ namespace WorldCities.Server.Data
                 pageIndex,
                 pageSize,
                 sortColumn,
-                sortOrder
+                sortOrder,
+                filterColumn,
+                filterQuery
             );
         }
 
