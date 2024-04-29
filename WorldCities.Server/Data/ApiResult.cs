@@ -25,7 +25,7 @@ namespace WorldCities.Server.Data
             }
         }
 
-        private ApiResult(List<T> data, int pageIndex, int pageSize, int totalCount)
+        private ApiResult(List<T> data, int totalCount, int pageIndex, int pageSize)
         {
             Data = data;
             PageIndex = pageIndex;
@@ -40,10 +40,10 @@ namespace WorldCities.Server.Data
             source = source.Skip(pageIndex * pageSize).Take(pageSize);
             var data = await source.ToListAsync();
             return new ApiResult<T>(
-                data, 
-                pageIndex, 
-                pageSize, 
-                count
+                data,
+                count,
+                pageIndex,
+                pageSize
             );
         }
     }

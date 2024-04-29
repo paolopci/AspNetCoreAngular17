@@ -18,12 +18,10 @@ namespace WorldCities.Server.Controllers
 
         // GET: api/Cities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<City>>> GetCities(int pageIndex = 0, int pageSize = 10)
+        public async Task<ActionResult<ApiResult<City>>> GetCities(int pageIndex = 0, int pageSize = 10)
         {
-            return await _context.Cities
-                .Skip(pageIndex * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
+            var citiesList = _context.Cities.AsNoTracking();
+            return await ApiResult<City>.CreateAsync(citiesList, pageIndex, pageSize);
         }
 
         // GET: api/Cities/5
