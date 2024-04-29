@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { City } from './city';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 
 
@@ -14,9 +14,9 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrl: './cities.component.scss'
 })
 export class CitiesComponent implements OnInit {
- 
+
   //public cities!: City[];
-  public cities!:MatTableDataSource<City>;
+  public cities!: MatTableDataSource<City>;
   public displayedColumns: string[] = ['id', 'name', 'lat', 'lon'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -24,12 +24,27 @@ export class CitiesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.http.get<City[]>(environment.baseUrl + 'api/Cities').subscribe({
+
+    var pageEvent = new PageEvent();
+    pageEvent.pageIndex = 0;
+    pageEvent.pageSize = 10;
+    this.getData(pageEvent);
+  }
+
+  getData(event: PageEvent) {
+    var url = environment.baseUrl + 'api/Cities';
+    var params = new HttpParams()
+      .set("pageIndex", event.pageIndex.toString()) // xchè HttpParams è immutabile !!!!!!
+      .set('pageSize', event.pageSize.toString());
+    this.http.get<any>(url, { params }).subscribe({
       next: (result) => {
-        this.cities = new MatTableDataSource<City>(result);
-        this.cities.paginator=this.paginator;
-      }, error: (err) => console.error(err)
+        this.paginator.length = result.totalCount;
+        this.paginator.pageIndex = result.pageIndex;
+        this.paginator.pageSize = result.pageSize;
+        this.cities = new MatTableDataSource<City>(result.data);
+      }, error: (error) => console.error(error)
     });
+
   }
 
 }
