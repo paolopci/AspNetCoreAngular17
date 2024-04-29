@@ -29,7 +29,7 @@ namespace WorldCities.Server.Controllers
                 citiesList = citiesList.Where(c => c.Name.StartsWith(filterQuery));
             }
             return await ApiResult<City>.CreateAsync(citiesList, pageIndex, pageSize, sortColumn, 
-                                                       sortOrder, filterColumn, filterQuery);
+                                                       sortOrder);
         }
 
         // GET: api/Cities/5
