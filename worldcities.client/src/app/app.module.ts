@@ -16,6 +16,10 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { ChildComponent } from './child/child.component';
 import { CountriesComponent } from './countries/countries.component';
 
+// Cap 7 reactive forms!!!!!
+import { ReactiveFormsModule } from '@angular/forms';
+
+
 
 @NgModule({
   declarations: [
@@ -32,6 +36,7 @@ import { CountriesComponent } from './countries/countries.component';
     HttpClientModule,
     AppRoutingModule,
     AngularMaterialModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideAnimationsAsync()
