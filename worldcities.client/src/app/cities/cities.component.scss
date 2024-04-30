@@ -1,0 +1,35 @@
+.select,
+#locale {
+    width: 100%;
+}
+
+.like {
+    margin-right: 10px;
+}
+
+.cdk-header-cell.cdk-column-id.mat-column-id,
+.cdk-header-cell.cdk-column-name.mat-column-name,
+.cdk-header-cell.cdk-column-lat.mat-column-lat,
+.cdk-header-cell.cdk-column-lon.mat-column-lon {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+// in Material 16+
+.mat-mdc-row:nth-child(even) {
+    background-color: #f1f1f1;
+    /* Set the background color for even rows */
+}
+
+// in Material 16+
+.mat-mdc-row:nth-child(odd) {
+    background-color: #ffffff;
+    /* Set the background color for odd rows */
+}
+
+// input filter
+mat-form-field{
+    font-size: 14px;
+    font-weight: bold;
+    width: 100%;
+}
