@@ -14,6 +14,7 @@ import { CitiesComponent } from './cities/cities.component';
 import { AngularMaterialModule } from './angular-material.module';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ChildComponent } from './child/child.component';
+import { CountriesComponent } from './countries/countries.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { ChildComponent } from './child/child.component';
     NavMenuComponent,
     CitiesComponent,
     ChildComponent,
+    CountriesComponent,
   ],
   imports: [
     BrowserAnimationsModule,
