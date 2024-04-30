@@ -18,6 +18,7 @@ import { CountriesComponent } from './countries/countries.component';
 
 // Cap 7 reactive forms!!!!!
 import { ReactiveFormsModule } from '@angular/forms';
+import { CityEditComponent } from './cities/city-edit.component';
 
 
 
@@ -29,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CitiesComponent,
     ChildComponent,
     CountriesComponent,
+    CityEditComponent,
   ],
   imports: [
     BrowserAnimationsModule,
