@@ -77,9 +77,9 @@ export class CityEditComponent implements OnInit {
     var city = (this.id) ? this.city : <City>{};
     if (city) {
       city.name = this.form.controls['name'].value;
-      city.lat = this.form.controls['lat'].value;
-      city.lon = this.form.controls['lon'].value;
-      city.countryId = this.form.controls['countryId'].value;
+      city.lat = +this.form.controls['lat'].value;
+      city.lon = +this.form.controls['lon'].value;
+      city.countryId = +this.form.controls['countryId'].value;
 
       if (this.id) {
         // Edit mode
@@ -97,6 +97,8 @@ export class CityEditComponent implements OnInit {
         this.http.post<City>(url, city).subscribe({
           next: (result) => {
             console.log('City ' + result.id + ' has been created.');
+             // go back to cities list
+            this.router.navigate(['/cities']);
           }, error: (error) => console.error(error)
         });
       }
