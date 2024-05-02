@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'cities', component: CitiesComponent },
   { path: 'countries', component: CountriesComponent },
   { path: 'city/:id', component: CityEditComponent },
+  { path: 'city', component: CityEditComponent },
   { path: 'demo', component: NgbdTableComplete },
 ];
 

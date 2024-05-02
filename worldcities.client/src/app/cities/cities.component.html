@@ -4,6 +4,8 @@
     <app-child></app-child>  -->
     <p>Here's a list of cities: feel free to play with it.</p>
     <p *ngIf="!cities"><img src="/assets/img/Loading30.gif" alt="animated Loading"></p>
+    <!-- Pulsane aggiungi una nuova città  -->
+    <button mat-flat-button color="primary" class="btn-add" *ngIf="cities" [routerLink]="'/city'">Add new City</button>
     <!--  Input per inserire il filtro per la ricerca -->
     <mat-form-field [hidden]="!cities">
         <input matInput #filter (keyup)="loadData(filter.value)" placeholder="Filter by name (or part of it)...">

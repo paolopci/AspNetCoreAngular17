@@ -28,8 +28,12 @@
 }
 
 // input filter
-mat-form-field{
+mat-form-field {
     font-size: 14px;
     font-weight: bold;
     width: 100%;
+}
+
+.btn-add {
+    float: right;
 }
