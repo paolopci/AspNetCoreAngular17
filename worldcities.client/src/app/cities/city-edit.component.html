@@ -21,13 +21,14 @@
       <mat-error *ngIf="form.controls['lon'].errors?.['required']">Longitude is required.</mat-error>
     </mat-form-field>
     <mat-form-field *ngIf="countries">
-      <mat-label>Select an Country</mat-label>
+      <mat-label>Select an Country...</mat-label>
       <mat-select id="countryId" formControlName="countryId">
         <mat-option *ngFor="let country of countries" [value]="country.id">{{country.name}}</mat-option>
       </mat-select>
+      <mat-error *ngIf="form.controls['countryId'].errors?.['required']">Please select a Country.</mat-error>
     </mat-form-field>
     <div>
-      <button mat-flat-button color="primary" type="submit" (click)="onSubmit()">{{this.id?"Save":"Create"}}</button>
+      <button mat-flat-button color="primary" type="submit" (click)="onSubmit()" [disabled]="!form.valid">{{this.id?"Save":"Create"}}</button>
       <button mat-flat-button color="secondary" [routerLink]="['/cities']">Cancel</button>
     </div>
   </div>
