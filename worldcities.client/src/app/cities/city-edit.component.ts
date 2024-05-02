@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { environment } from '../../environments/environment';
 import { City } from './city';
 import { Country } from '../countries/country';
@@ -25,11 +25,11 @@ export class CityEditComponent implements OnInit {
   constructor(private http: HttpClient, private activedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      name: new FormControl(''),
-      lat: new FormControl(''),
-      lon: new FormControl(''),
-      countryId: new FormControl('')
+    this.form = new FormGroup({  // ho messo anche la Validazione !!!!
+      name: new FormControl('', Validators.required),
+      lat: new FormControl('', Validators.required),
+      lon: new FormControl('', Validators.required),
+      countryId: new FormControl('', Validators.required)
     });
     this.loadData();
   }
@@ -97,7 +97,7 @@ export class CityEditComponent implements OnInit {
         this.http.post<City>(url, city).subscribe({
           next: (result) => {
             console.log('City ' + result.id + ' has been created.');
-             // go back to cities list
+            // go back to cities list
             this.router.navigate(['/cities']);
           }, error: (error) => console.error(error)
         });
