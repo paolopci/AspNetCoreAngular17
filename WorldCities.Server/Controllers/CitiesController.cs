@@ -28,7 +28,7 @@ namespace WorldCities.Server.Controllers
             {
                 citiesList = citiesList.Where(c => c.Name.StartsWith(filterQuery));
             }
-            return await ApiResult<City>.CreateAsync(citiesList, pageIndex, pageSize, sortColumn, 
+            return await ApiResult<City>.CreateAsync(citiesList, pageIndex, pageSize, sortColumn,
                                                        sortOrder);
         }
 
@@ -102,6 +102,19 @@ namespace WorldCities.Server.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpPost]
+        [Route("IsDupeCity")]
+        public bool IsDupeCity(City city)
+        {
+            return _context.Cities.AsNoTracking().Any(
+                e => e.Name == city.Name
+                    && e.Lat == city.Lat
+                    && e.Lon == city.Lon
+                    && e.CountryId == city.CountryId
+                    && e.Id != city.Id  // xchè quando modifico una città questo deve essere uguale
+            );
         }
 
         private bool CityExists(int id)

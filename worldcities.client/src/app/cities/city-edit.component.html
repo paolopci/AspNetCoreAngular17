@@ -2,6 +2,12 @@
   <h1>{{title}}</h1>
   <p *ngIf="id && !city"><img src="/assets/img/Loading30.gif" alt="animated Loading"></p>
   <div [formGroup]="form" (ngSubmit)="onSubmit">
+    <p>
+      <mat-error *ngIf="form.invalid && form.hasError('isDupeCity')">
+        <strong>ERROR</strong>: A city with the same <i>name</i>, <i>lat</i>, <i>lon</i> and <i>countryId</i> already
+        exists.
+      </mat-error>
+    </p>
     <!-- Name -->
     <mat-form-field>
       <mat-label>Name:</mat-label>
@@ -28,7 +34,8 @@
       <mat-error *ngIf="form.controls['countryId'].errors?.['required']">Please select a Country.</mat-error>
     </mat-form-field>
     <div>
-      <button mat-flat-button color="primary" type="submit" (click)="onSubmit()" [disabled]="!form.valid">{{this.id?"Save":"Create"}}</button>
+      <button mat-flat-button color="primary" type="submit" (click)="onSubmit()"
+        [disabled]="!form.valid">{{this.id?"Save":"Create"}}</button>
       <button mat-flat-button color="secondary" [routerLink]="['/cities']">Cancel</button>
     </div>
   </div>
