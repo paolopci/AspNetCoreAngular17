@@ -4,10 +4,13 @@ import { Injectable, PipeTransform } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
 import { Country } from './country';
-import { COUNTRIES } from './countries';
+//import { COUNTRIES } from './countries';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 import { SortColumn, SortDirection } from './sortable.directive';
+
+
+
 
 interface SearchResult {
 	countries: Country[];
@@ -38,8 +41,10 @@ function sort(countries: Country[], column: SortColumn, direction: string): Coun
 function matches(country: Country, term: string, pipe: PipeTransform) {
 	return (
 		country.name.toLowerCase().includes(term.toLowerCase()) ||
-		pipe.transform(country.area).includes(term) ||
-		pipe.transform(country.population).includes(term)
+		country.iso2.toLowerCase().includes(term.toLowerCase()) ||
+		country.iso3.toLowerCase().includes(term.toLowerCase()) 
+		//pipe.transform(country.area).includes(term) ||
+		//pipe.transform(country.population).includes(term)
 	);
 }
 
@@ -50,6 +55,8 @@ export class CountryService {
 	private _countries$ = new BehaviorSubject<Country[]>([]);
 	private _total$ = new BehaviorSubject<number>(0);
 
+  public COUNTRIES!:Country[];
+
 	private _state: State = {
 		page: 1,
 		pageSize: 4,
@@ -59,20 +66,20 @@ export class CountryService {
 	};
 
 	constructor(private pipe: DecimalPipe) {
-		this._search$
-			.pipe(
-				tap(() => this._loading$.next(true)),
-				debounceTime(200),
-				switchMap(() => this._search()),
-				delay(200),
-				tap(() => this._loading$.next(false)),
-			)
-			.subscribe((result) => {
-				this._countries$.next(result.countries);
-				this._total$.next(result.total);
-			});
+		//this._search$
+		//	.pipe(
+		//		tap(() => this._loading$.next(true)),
+		//		debounceTime(200),
+		//	//	switchMap(() => this._search()),
+		//		delay(200),
+		//		tap(() => this._loading$.next(false)),
+		//	)
+		//	.subscribe((result) => {
+		//		this._countries$.next(result.countries);
+		//		this._total$.next(result.total);
+		//	});
 
-		this._search$.next();
+		//this._search$.next();
 	}
 
 	get countries$() {
@@ -115,18 +122,19 @@ export class CountryService {
 		this._search$.next();
 	}
 
-	private _search(): Observable<SearchResult> {
-		const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
+	//private _search(): Observable<SearchResult> {
+	//	const { sortColumn, sortDirection, pageSize, page, searchTerm } = this._state;
 
-		// 1. sort
-		let countries = sort(COUNTRIES, sortColumn, sortDirection);
+	//	// 1. sort
+	//	//let countries = sort(COUNTRIES, sortColumn, sortDirection);
+	//	let countries = sort(COUNTRIES, sortColumn, sortDirection);
 
-		// 2. filter
-		countries = countries.filter((country) => matches(country, searchTerm, this.pipe));
-		const total = countries.length;
+	//	// 2. filter
+	//	countries = countries.filter((country) => matches(country, searchTerm, this.pipe));
+	//	const total = countries.length;
 
-		// 3. paginate
-		countries = countries.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
-		return of({ countries, total });
-	}
+	//	// 3. paginate
+	//	countries = countries.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+	//	return of({ countries, total });
+	//}
 }
