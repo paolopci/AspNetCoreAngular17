@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, AbstractControl, AsyncValidatorFn } from '@angular/forms';
-import { environment } from '../../environments/environment';
-import { City } from './city';
-import { Country } from '../countries/country';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormGroup, FormControl, Validators, AbstractControl, AsyncValidatorFn} from '@angular/forms';
+import {environment} from '../../environments/environment';
+import {City} from './city';
+import {Country} from '../countries/country';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 import {BaseFormComponent} from "../base-form.component";
-
-
 
 
 @Component({
@@ -17,7 +15,7 @@ import {BaseFormComponent} from "../base-form.component";
   templateUrl: './city-edit.component.html',
   styleUrl: './city-edit.component.scss'
 })
-export class CityEditComponent extends BaseFormComponent  implements OnInit {
+export class CityEditComponent extends BaseFormComponent implements OnInit {
 
   title?: string;
   // form!: FormGroup;
@@ -32,8 +30,8 @@ export class CityEditComponent extends BaseFormComponent  implements OnInit {
   ngOnInit(): void {
     this.form = new FormGroup({  // ho messo anche la Validazione !!!!
       name: new FormControl('', Validators.required),
-      lat: new FormControl('', Validators.required),
-      lon: new FormControl('', Validators.required),
+      lat: new FormControl('', [Validators.required, Validators.pattern(/^[-]?[0-9]+(\.[0-9]{1,4})?$/)]),
+      lon: new FormControl('', [Validators.required, Validators.pattern(/^[-]?[0-9]+(\.[0-9]{1,4})?$/)]),
       countryId: new FormControl('', Validators.required) // i validatori async verranno controllati dopo aver
     }, null, this.isDupeCity());                          // controllato TUTTI i validatori sincroni quindi dopo
     this.loadData();                                      // tutti i Validators.required
@@ -71,7 +69,7 @@ export class CityEditComponent extends BaseFormComponent  implements OnInit {
       .set('sortColumn', 'name')
       .set('sortOrder', 'asc');
 
-    this.http.get<any>(url, { params }).subscribe({
+    this.http.get<any>(url, {params}).subscribe({
       next: (result) => {
         this.countries = result.data;
       }, error: (error) => console.error(error)
@@ -90,11 +88,10 @@ export class CityEditComponent extends BaseFormComponent  implements OnInit {
       var url = environment.baseUrl + 'api/Cities/IsDupeCity';
       return this.http.post<boolean>(url, city).pipe(
         map(result => {
-          return (result ? { isDupeCity: true } : null);
+          return (result ? {isDupeCity: true} : null);
         }));
     }
   }
-
 
 
   onSubmit() {
