@@ -1,36 +1,40 @@
 .select,
 #locale {
-    width: 100%;
+  width: 100%;
 }
 
 .like {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .cdk-header-cell.cdk-column-id.mat-column-id,
 .cdk-header-cell.cdk-column-name.mat-column-name,
 .cdk-header-cell.cdk-column-iso2.mat-column-iso2,
 .cdk-header-cell.cdk-column-iso3.mat-column-iso3 {
-    background-color: rgb(136, 136, 23);
-    font-weight: bold;
-    color: white;
+  background-color: rgb(136, 136, 23);
+  font-weight: bold;
+  color: white;
 }
 
-// in Material 16+
+//in Material 16+
 .mat-mdc-row:nth-child(even) {
-    background-color: #f1f1f1;
-    /* Set the background color for even rows */
+  background-color: #f1f1f1;
+  /* Set the background color for even rows */
 }
 
-// in Material 16+
+//in Material 16+
 .mat-mdc-row:nth-child(odd) {
-    background-color: #ffffff;
-    /* Set the background color for odd rows */
+  background-color: #ffffff;
+  /* Set the background color for odd rows */
 }
 
-// input filter
-mat-form-field{
-    font-size: 14px;
-    font-weight: bold;
-    width: 100%;
+//input filter
+mat-form-field {
+  font-size: 14px;
+  font-weight: bold;
+  width: 100%;
+}
+
+.btn-add {
+  float: right;
 }

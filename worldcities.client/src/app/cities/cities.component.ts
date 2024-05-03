@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild, viewChild } from '@angular/core';
-import { City } from './city';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import {Component, OnInit, ViewChild, viewChild} from '@angular/core';
+import {City} from './city';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {Subject} from "rxjs";
+import {debounceTime, distinctUntilChanged} from "rxjs/operators";
 
 @Component({
   selector: 'app-cities',
@@ -16,7 +18,7 @@ export class CitiesComponent implements OnInit {
   //public cities!: City[];
   public cities!: MatTableDataSource<City>;
   public displayedColumns: string[] = ['id', 'name', 'lat', 'lon'];
-  // valori di default 
+  // valori di default
   defaultPageIndex: number = 0;
   defaultPageSize: number = 10;
   // queste sono public because we need to use them from the HTML template via two-way data binding
@@ -28,7 +30,10 @@ export class CitiesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   // per eseguire l'ordinamento dei dati ritornati
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(private http: HttpClient) { }
+  filterTextChanged: Subject<string> = new Subject<string>();
+
+  constructor(private http: HttpClient) {
+  }
 
 
   ngOnInit(): void {
@@ -47,7 +52,7 @@ export class CitiesComponent implements OnInit {
         .set('filterColumn', this.defaultFilterColumn)
         .set('filterQuery', this.filterQuery);
     }
-    this.http.get<any>(url, { params }).subscribe({
+    this.http.get<any>(url, {params}).subscribe({
       next: (result) => {
         this.paginator.length = result.totalCount;
         this.paginator.pageIndex = result.pageIndex;
@@ -63,5 +68,17 @@ export class CitiesComponent implements OnInit {
     pageEvent.pageSize = this.defaultPageSize;
     this.filterQuery = query;
     this.getData(pageEvent);
+  }
+
+  // debounce filter text changes
+  onFilterTextChanged(filterText: string) {
+    if (!this.filterTextChanged.observed) {
+      this.filterTextChanged
+        .pipe(debounceTime(1000), distinctUntilChanged())
+        .subscribe(query => {
+          this.loadData(query);
+        });
+    }
+    this.filterTextChanged.next(filterText);
   }
 }

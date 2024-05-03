@@ -5,6 +5,10 @@ import { environment } from '../../environments/environment';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { NgbConfig } from '@ng-bootstrap/ng-bootstrap';
+import {Subject} from "rxjs";
+import {debounceTime, distinctUntilChanged} from "rxjs/operators";
+
 
 
 @Component({
@@ -13,7 +17,8 @@ import { MatSort } from '@angular/material/sort';
   styleUrl: './countries.component.scss'
 })
 export class CountriesComponent implements OnInit {
-  public countries!: MatTableDataSource<Country>;
+  //public countries!: MatTableDataSource<Country>;
+  public countries!: Country[];
   public displayedColumns: string[] = ['id', 'name', 'iso2', 'iso3'];
   // valori di default
   defaultPageIndex: number = 0;
@@ -27,8 +32,9 @@ export class CountriesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   // per eseguire l'ordinamento dei dati ritornati
   @ViewChild(MatSort) sort!: MatSort
+  filterTextChanged: Subject<string> = new Subject<string>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
 
   ngOnInit(): void {
@@ -60,10 +66,22 @@ export class CountriesComponent implements OnInit {
         this.paginator.length = result.totalCount;
         this.paginator.pageIndex = result.pageIndex;
         this.paginator.pageSize = result.pageSize;
-        this.countries = new MatTableDataSource<Country>(result.data);
+        //  this.countries = new MatTableDataSource<Country>(result.data);
+        this.countries = result.data;
       }, error: (error) => console.error(error)
     });
+  }
 
+  // debounce filter text changes
+  onFilterTextChanged(filterText: string) {
+    if (!this.filterTextChanged.observed) {
+      this.filterTextChanged
+        .pipe(debounceTime(1000), distinctUntilChanged())
+        .subscribe(query => {
+          this.loadData(query);
+        });
+    }
+    this.filterTextChanged.next(filterText);
   }
 
 }

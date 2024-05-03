@@ -17,6 +17,20 @@ import { ChildComponent } from './child/child.component';
 import { CountriesComponent } from './countries/countries.component';
 
 
+
+// Cap 7 reactive forms!!!!!
+import { ReactiveFormsModule } from '@angular/forms';
+import { CityEditComponent } from './cities/city-edit.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DecimalPipe,CommonModule } from '@angular/common';
+import { CountryEditComponent } from './countries/country-edit.component';
+
+
+
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +39,8 @@ import { CountriesComponent } from './countries/countries.component';
     CitiesComponent,
     ChildComponent,
     CountriesComponent,
+    CityEditComponent,
+    CountryEditComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -32,6 +48,10 @@ import { CountriesComponent } from './countries/countries.component';
     HttpClientModule,
     AppRoutingModule,
     AngularMaterialModule,
+    ReactiveFormsModule,
+    NgbModule,
+    DecimalPipe,
+    CommonModule
   ],
   providers: [
     provideAnimationsAsync()
