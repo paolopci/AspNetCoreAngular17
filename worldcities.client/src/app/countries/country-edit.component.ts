@@ -14,7 +14,7 @@ import { Country } from './country';
   styleUrl: './country-edit.component.scss'
 })
 export class CountryEditComponent implements OnInit {
-  // view title 
+  // view title
   title?: string;
   // form model
   form!: FormGroup;
@@ -27,7 +27,8 @@ export class CountryEditComponent implements OnInit {
   // the countries array for the select
   countries?: Country[];
 
-  constructor(private http: HttpClient, private router: Router, private fb: FormBuilder, private activeRoute: ActivatedRoute) { }
+  constructor(private http: HttpClient, private router: Router, private fb: FormBuilder, private activeRoute: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -38,11 +39,76 @@ export class CountryEditComponent implements OnInit {
     this.loadData();
   }
 
-  isDupeField(name: string): AsyncValidatorFn { }
+  isDupeField(fieldName: string): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<{ [key: string]: any } | null> => {
+      var params = new HttpParams()
+        .set("countryId", (this.id) ? this.id.toString() : "0")
+        .set("fieldName", fieldName)
+        .set("fieldValue", control.value);
+
+      var url = environment.baseUrl + 'api/Countries/IsDupeField';
+      return this.http.post<boolean>(url, null, { params })
+        .pipe(
+          map(result => {
+            return (result ? { isDupeField: true } : null);
+          })
+        );
+    }
+  }
 
   loadData() {
     // retrieve the ID from the 'id' parameter
     var idParam = this.activeRoute.snapshot.paramMap.get('id');
     this.id = idParam ? +idParam : 0;
+    if (this.id) {
+      // Edit Mode
+      // fetch the country from the server
+      var url = environment.baseUrl + 'api/Countries/' + this.id;
+      this.http.get<Country>(url).subscribe({
+        next: (result) => {
+          this.country = result;
+          this.title = "Edit - " + this.country.name;
+          // update the form with the country value
+          this.form.patchValue(this.country);
+        }, error: (error) => console.error(error)
+      });
+    } else {
+      // ADD new Mode
+      this.title = " Create a new Country";
+    }
+  }
+
+  onSubmit() {
+    var country = (this.id) ? this.country : <Country>{};
+    if (country) {
+      country.name = this.form.controls['name'].value;
+      country.iso2 = this.form.controls['iso2'].value;
+      country.iso3 = this.form.controls['iso3'].value;
+      if (this.id) {
+        //EDIT mode
+        var url = environment.baseUrl + 'api/Countries/' + country.id;
+        this.http.put<Country>(url, country).subscribe({
+          next: (result) => {
+            console.log("Country " + country?.id + " has been updated.");
+            // go back to countries view
+            this.router.navigate(['/countries']);
+          },
+          error: (error) => console.error(error)
+        });
+      } else {
+        // ADD NEW mode
+        var url = environment.baseUrl + 'api/Countries';
+        this.http
+          .post<Country>(url, country)
+          .subscribe({
+            next: (result) => {
+              console.log("Country " + result.id + " has been created.");
+              // go back to countries view
+              this.router.navigate(['/countries']);
+            },
+            error: (error) => console.error(error)
+          });
+      }
+    }
   }
 }

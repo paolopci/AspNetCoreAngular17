@@ -104,6 +104,33 @@ namespace WorldCities.Server.Controllers
             return NoContent();
         }
 
+        [HttpPost]
+        [Route("IsDupeField")]
+        public bool IsDupeField(int countryId, string fieldName, string fieldValue)
+        {
+            /*
+             isDupeField deve controllare individualmente ciascun campo a cui è assegnato.
+             Dobbiamo farlo perché non vogliamo che più di un paese abbia lo stesso nome, lo stesso iso2 o lo stesso iso3.
+             Questo spiega anche perché dobbiamo specificare un fieldName e un corrispondente fieldValue 
+             invece di passare un'interfaccia Country: l'API lato server isDupeField dovrà eseguire 
+             un controllo diverso per ogni fieldName che passeremo, invece di basarsi su un singolo 
+             controllo generico come fa l'API isDupeCity.
+           
+             */
+            switch (fieldName)
+            {
+                case "name":
+                    return _context.Countries.Any(c => c.Name == fieldValue && c.Id != countryId);
+                case "iso2":
+                    return _context.Countries.Any(c => c.ISO2 == fieldValue && c.Id != countryId);
+                case "iso3":
+                    return _context.Countries.Any(c => c.ISO3 == fieldValue && c.Id != countryId);
+                default:
+                    return false;
+
+            }
+        }
+
         private bool CountryExists(int id)
         {
             return _context.Countries.Any(e => e.Id == id);
