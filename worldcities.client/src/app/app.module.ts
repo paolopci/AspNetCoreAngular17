@@ -23,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CityEditComponent } from './cities/city-edit.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DecimalPipe,CommonModule } from '@angular/common';
+import { CountryEditComponent } from './countries/country-edit.component';
 
 
 
@@ -38,7 +39,8 @@ import { DecimalPipe,CommonModule } from '@angular/common';
     CitiesComponent,
     ChildComponent,
     CountriesComponent,
-    CityEditComponent
+    CityEditComponent,
+    CountryEditComponent
   ],
   imports: [
     BrowserAnimationsModule,

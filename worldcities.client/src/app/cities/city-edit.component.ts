@@ -31,9 +31,9 @@ export class CityEditComponent implements OnInit {
       name: new FormControl('', Validators.required),
       lat: new FormControl('', Validators.required),
       lon: new FormControl('', Validators.required),
-      countryId: new FormControl('', Validators.required)
-    }, null, this.isDupeCity());
-    this.loadData();
+      countryId: new FormControl('', Validators.required) // i validatori async verranno controllati dopo aver
+    }, null, this.isDupeCity());                          // controllato TUTTI i validatori sincroni quindi dopo
+    this.loadData();                                      // tutti i Validators.required
   }
 
 
