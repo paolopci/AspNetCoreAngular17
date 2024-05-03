@@ -7,6 +7,7 @@ import { City } from './city';
 import { Country } from '../countries/country';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import {BaseFormComponent} from "../base-form.component";
 
 
 
@@ -16,15 +17,17 @@ import { map } from 'rxjs/operators';
   templateUrl: './city-edit.component.html',
   styleUrl: './city-edit.component.scss'
 })
-export class CityEditComponent implements OnInit {
+export class CityEditComponent extends BaseFormComponent  implements OnInit {
 
   title?: string;
-  form!: FormGroup;
+  // form!: FormGroup;
   city?: City;
   id?: number;
   countries?: Country[]; // salvo tutto l'elenco dei paesi
 
-  constructor(private http: HttpClient, private activedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private http: HttpClient, private activedRoute: ActivatedRoute, private router: Router) {
+    super();
+  }
 
   ngOnInit(): void {
     this.form = new FormGroup({  // ho messo anche la Validazione !!!!

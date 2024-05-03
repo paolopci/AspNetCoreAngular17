@@ -2,7 +2,7 @@
   <h1>Countries</h1>
   <p>Here's a list of countries free to play with it.</p>
   <p *ngIf="!countries"><img src="/assets/img/Loading30.gif" alt="animated Loading"></p>
-  <button mat-flat-button color="primary" class="btn-add" [routerLink]="['/country']">Add new Country</button>
+  <button mat-flat-button color="primary" class="btn-add" *ngIf="countries" [routerLink]="['/country']">Add new Country</button>
   <mat-form-field [hidden]="!countries">
     <input matInput #filter (keyup)="onFilterTextChanged(filter.value)" placeholder="Filter by name (or part of it)...">
   </mat-form-field>

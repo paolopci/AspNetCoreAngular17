@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, AbstractControl, AsyncValidatorFn } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
-import { Country } from './country';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormGroup, FormBuilder, Validators, AbstractControl, AsyncValidatorFn} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
+import {Country} from './country';
+import {BaseFormComponent} from "../base-form.component";
 
 
 @Component({
@@ -13,11 +14,11 @@ import { Country } from './country';
   templateUrl: './country-edit.component.html',
   styleUrl: './country-edit.component.scss'
 })
-export class CountryEditComponent implements OnInit {
+export class CountryEditComponent extends BaseFormComponent implements OnInit {
   // view title
   title?: string;
   // form model
-  form!: FormGroup;
+  //form!: FormGroup;
   // the country object to edit or create
   country?: Country;
   // the country object id, as fetched from the active route:
@@ -28,6 +29,7 @@ export class CountryEditComponent implements OnInit {
   countries?: Country[];
 
   constructor(private http: HttpClient, private router: Router, private fb: FormBuilder, private activeRoute: ActivatedRoute) {
+    super();
   }
 
   ngOnInit(): void {
@@ -47,10 +49,10 @@ export class CountryEditComponent implements OnInit {
         .set("fieldValue", control.value);
 
       var url = environment.baseUrl + 'api/Countries/IsDupeField';
-      return this.http.post<boolean>(url, null, { params })
+      return this.http.post<boolean>(url, null, {params})
         .pipe(
           map(result => {
-            return (result ? { isDupeField: true } : null);
+            return (result ? {isDupeField: true} : null);
           })
         );
     }
@@ -111,4 +113,28 @@ export class CountryEditComponent implements OnInit {
       }
     }
   }
+
+  // ..............................................................
+  // getErrors(control: AbstractControl, displayName: string): string[] {
+  //   var errors: string[] = [];
+  //   Object.keys(control.errors || {}).forEach((key) => {
+  //     switch (key) {
+  //       case 'required':
+  //         errors.push(`${displayName} is required`);
+  //         break;
+  //       case 'pattern':
+  //         errors.push(`${displayName} contains invalid characters.`);
+  //         break;
+  //       case 'isDupeField':
+  //         errors.push(`${displayName} already exists: please choose another.`);
+  //         break;
+  //       default:
+  //         errors.push(`${displayName} is invalid.`);
+  //         break;
+  //     }
+  //   });
+  //
+  //
+  //   return errors;
+  // }
 }
