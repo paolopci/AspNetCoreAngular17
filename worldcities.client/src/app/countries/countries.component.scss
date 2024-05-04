@@ -10,7 +10,9 @@
 .cdk-header-cell.cdk-column-id.mat-column-id,
 .cdk-header-cell.cdk-column-name.mat-column-name,
 .cdk-header-cell.cdk-column-iso2.mat-column-iso2,
-.cdk-header-cell.cdk-column-iso3.mat-column-iso3 {
+.cdk-header-cell.cdk-column-iso3.mat-column-iso3,
+.cdk-header-cell.cdk-column-totCities.mat-column-totCities
+{
   background-color: rgb(136, 136, 23);
   font-weight: bold;
   color: white;

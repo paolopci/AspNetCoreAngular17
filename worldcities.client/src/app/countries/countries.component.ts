@@ -19,7 +19,7 @@ import {debounceTime, distinctUntilChanged} from "rxjs/operators";
 export class CountriesComponent implements OnInit {
   //public countries!: MatTableDataSource<Country>;
   public countries!: Country[];
-  public displayedColumns: string[] = ['id', 'name', 'iso2', 'iso3'];
+  public displayedColumns: string[] = ['id', 'name', 'iso2', 'iso3','totCities'];
   // valori di default
   defaultPageIndex: number = 0;
   defaultPageSize: number = 10;
