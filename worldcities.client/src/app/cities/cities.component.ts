@@ -17,7 +17,7 @@ export class CitiesComponent implements OnInit {
 
   //public cities!: City[];
   public cities!: MatTableDataSource<City>;
-  public displayedColumns: string[] = ['id', 'name', 'lat', 'lon'];
+  public displayedColumns: string[] = ['id', 'name', 'lat', 'lon','countryName'];
   // valori di default
   defaultPageIndex: number = 0;
   defaultPageSize: number = 10;
