@@ -23,6 +23,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DecimalPipe, CommonModule} from '@angular/common';
 import {CountryEditComponent} from './countries/country-edit.component';
 import {CityService} from "./cities/city.service";
+import {CountryService} from "./countries/country.service";
 import {copyArrayItem} from "@angular/cdk/drag-drop";
 
 
@@ -49,7 +50,7 @@ import {copyArrayItem} from "@angular/cdk/drag-drop";
     CommonModule
   ],
   providers: [
-    provideAnimationsAsync(), CityService
+    provideAnimationsAsync(), CityService, CountryService
   ],
   bootstrap: [AppComponent]
 })
