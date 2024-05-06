@@ -3,7 +3,6 @@ import {environment} from "../environments/environment";
 import {Observable} from "rxjs";
 
 
-
 export abstract class BaseService<T> {
 
   constructor(protected http: HttpClient) {

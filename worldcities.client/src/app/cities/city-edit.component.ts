@@ -8,6 +8,7 @@ import {Country} from '../countries/country';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BaseFormComponent} from "../base-form.component";
+import {CityService} from "./city.service";
 
 
 @Component({
@@ -23,7 +24,8 @@ export class CityEditComponent extends BaseFormComponent implements OnInit {
   id?: number;
   countries?: Country[]; // salvo tutto l'elenco dei paesi
 
-  constructor(private http: HttpClient, private activedRoute: ActivatedRoute, private router: Router) {
+  constructor(private http: HttpClient, private activedRoute: ActivatedRoute, private router: Router,
+              private cityService: CityService) {
     super();
   }
 
@@ -104,8 +106,8 @@ export class CityEditComponent extends BaseFormComponent implements OnInit {
 
       if (this.id) {
         // Edit mode
-        var url = environment.baseUrl + 'api/Cities/' + city.id;
-        this.http.put<City>(url, city).subscribe({
+        // var url = environment.baseUrl + 'api/Cities/' + city.id;
+       this.cityService.put(city).subscribe({
           next: (result) => {
             console.log("City " + city!.id + " has been updated");
             // go back to cities list
@@ -115,7 +117,7 @@ export class CityEditComponent extends BaseFormComponent implements OnInit {
       } else {
         // add NEW mode
         var url = environment.baseUrl + 'api/Cities';
-        this.http.post<City>(url, city).subscribe({
+        this.cityService.post(city).subscribe({
           next: (result) => {
             console.log('City ' + result.id + ' has been created.');
             // go back to cities list
