@@ -49,7 +49,7 @@ export class CityEditComponent extends BaseFormComponent implements OnInit {
     if (this.id) {
       // ritorno la città dal Server
       var url = environment.baseUrl + 'api/Cities/' + this.id;
-      this.http.get<City>(url).subscribe({
+      this.cityService.get(this.id).subscribe({
         next: (result) => {
           this.city = result;
           this.title = "Edit - " + this.city.name;
@@ -71,7 +71,8 @@ export class CityEditComponent extends BaseFormComponent implements OnInit {
       .set('sortColumn', 'name')
       .set('sortOrder', 'asc');
 
-    this.http.get<any>(url, {params}).subscribe({
+    this.cityService.getCountries(0, 9999, "name", "asc",
+      null, null).subscribe({
       next: (result) => {
         this.countries = result.data;
       }, error: (error) => console.error(error)
@@ -88,7 +89,7 @@ export class CityEditComponent extends BaseFormComponent implements OnInit {
       city.countryId = +this.form.controls['countryId'].value;
 
       var url = environment.baseUrl + 'api/Cities/IsDupeCity';
-      return this.http.post<boolean>(url, city).pipe(
+      return this.cityService.isDupeCity(city).pipe(
         map(result => {
           return (result ? {isDupeCity: true} : null);
         }));
@@ -107,7 +108,7 @@ export class CityEditComponent extends BaseFormComponent implements OnInit {
       if (this.id) {
         // Edit mode
         // var url = environment.baseUrl + 'api/Cities/' + city.id;
-       this.cityService.put(city).subscribe({
+        this.cityService.put(city).subscribe({
           next: (result) => {
             console.log("City " + city!.id + " has been updated");
             // go back to cities list
