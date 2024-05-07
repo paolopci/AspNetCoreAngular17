@@ -18,18 +18,25 @@ namespace WorldCities.Server.Controllers
 
         // GET: api/Countries
         [HttpGet]
-        public async Task<ActionResult<ApiResult<Country>>> GetCountries(int pageIndex = 0, int pageSize = 10,
+        public async Task<ActionResult<ApiResult<CountryDTO>>> GetCountries(int pageIndex = 0, int pageSize = 10,
                                                                    string? sortColumn = null, string? sortOrder = null,
                                                                    string? filterColumn = null, string? filterQuery = null)
         {
-            var countriesList = _context.Countries.AsNoTracking();
+            var countriesList = _context.Countries.AsNoTracking().Select(c=>new CountryDTO()
+            {
+                Id = c.Id,
+                Name = c.Name,
+                ISO2 = c.ISO2,
+                ISO3 = c.ISO3,
+                TotCities = c.Cities!.Count
+            });
             if (!string.IsNullOrEmpty(filterColumn) && !string.IsNullOrEmpty(filterQuery))
             {
                 countriesList = countriesList.Where(c => c.Name.StartsWith(filterQuery));
             }
 
 
-            return await ApiResult<Country>.CreateAsync(countriesList, pageIndex, pageSize, sortColumn, sortOrder);
+            return await ApiResult<CountryDTO>.CreateAsync(countriesList, pageIndex, pageSize, sortColumn, sortOrder);
         }
 
         // GET: api/Countries/5

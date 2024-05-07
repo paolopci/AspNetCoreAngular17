@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, AbstractControl, AsyncValidatorFn } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
-import { Country } from './country';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormGroup, FormBuilder, Validators, AbstractControl, AsyncValidatorFn} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
+import {Country} from './country';
+import {BaseFormComponent} from "../base-form.component";
+import {CountryService} from "./country.service";
 
 
 @Component({
@@ -13,11 +15,11 @@ import { Country } from './country';
   templateUrl: './country-edit.component.html',
   styleUrl: './country-edit.component.scss'
 })
-export class CountryEditComponent implements OnInit {
+export class CountryEditComponent extends BaseFormComponent implements OnInit {
   // view title
   title?: string;
   // form model
-  form!: FormGroup;
+  //form!: FormGroup;
   // the country object to edit or create
   country?: Country;
   // the country object id, as fetched from the active route:
@@ -27,7 +29,9 @@ export class CountryEditComponent implements OnInit {
   // the countries array for the select
   countries?: Country[];
 
-  constructor(private http: HttpClient, private router: Router, private fb: FormBuilder, private activeRoute: ActivatedRoute) {
+  constructor(private http: HttpClient, private router: Router, private fb: FormBuilder,
+              private activeRoute: ActivatedRoute, private countryService: CountryService) {
+    super();
   }
 
   ngOnInit(): void {
@@ -39,22 +43,6 @@ export class CountryEditComponent implements OnInit {
     this.loadData();
   }
 
-  isDupeField(fieldName: string): AsyncValidatorFn {
-    return (control: AbstractControl): Observable<{ [key: string]: any } | null> => {
-      var params = new HttpParams()
-        .set("countryId", (this.id) ? this.id.toString() : "0")
-        .set("fieldName", fieldName)
-        .set("fieldValue", control.value);
-
-      var url = environment.baseUrl + 'api/Countries/IsDupeField';
-      return this.http.post<boolean>(url, null, { params })
-        .pipe(
-          map(result => {
-            return (result ? { isDupeField: true } : null);
-          })
-        );
-    }
-  }
 
   loadData() {
     // retrieve the ID from the 'id' parameter
@@ -63,8 +51,7 @@ export class CountryEditComponent implements OnInit {
     if (this.id) {
       // Edit Mode
       // fetch the country from the server
-      var url = environment.baseUrl + 'api/Countries/' + this.id;
-      this.http.get<Country>(url).subscribe({
+      this.countryService.get(this.id).subscribe({
         next: (result) => {
           this.country = result;
           this.title = "Edit - " + this.country.name;
@@ -86,8 +73,8 @@ export class CountryEditComponent implements OnInit {
       country.iso3 = this.form.controls['iso3'].value;
       if (this.id) {
         //EDIT mode
-        var url = environment.baseUrl + 'api/Countries/' + country.id;
-        this.http.put<Country>(url, country).subscribe({
+        // var url = environment.baseUrl + 'api/Countries/' + country.id;
+        this.countryService.put(country).subscribe({
           next: (result) => {
             console.log("Country " + country?.id + " has been updated.");
             // go back to countries view
@@ -98,17 +85,27 @@ export class CountryEditComponent implements OnInit {
       } else {
         // ADD NEW mode
         var url = environment.baseUrl + 'api/Countries';
-        this.http
-          .post<Country>(url, country)
-          .subscribe({
-            next: (result) => {
-              console.log("Country " + result.id + " has been created.");
-              // go back to countries view
-              this.router.navigate(['/countries']);
-            },
-            error: (error) => console.error(error)
-          });
+        this.countryService.post(country).subscribe({
+          next: (result) => {
+            console.log("Country " + result.id + " has been created.");
+            // go back to countries view
+            this.router.navigate(['/countries']);
+          },
+          error: (error) => console.error(error)
+        });
       }
     }
   }
+
+  isDupeField(fieldName: string): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<{ [key: string]: any } | null> => {
+      return this.countryService.isDupeField(this.id ?? 0, fieldName, control.value)
+        .pipe(
+          map(result => {
+            return (result ? {isDupeField: true} : null);
+          })
+        );
+    }
+  }
+
 }
