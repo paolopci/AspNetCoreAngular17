@@ -18,6 +18,7 @@ import {CityService} from "./city.service";
 })
 export class CityEditComponent extends BaseFormComponent implements OnInit {
 
+
   title?: string;
   // form!: FormGroup;
   city?: City;
@@ -35,8 +36,8 @@ export class CityEditComponent extends BaseFormComponent implements OnInit {
       lat: new FormControl('', [Validators.required, Validators.pattern(/^[-]?[0-9]+(\.[0-9]{1,4})?$/)]),
       lon: new FormControl('', [Validators.required, Validators.pattern(/^[-]?[0-9]+(\.[0-9]{1,4})?$/)]),
       countryId: new FormControl('', Validators.required) // i validatori async verranno controllati dopo aver
-    }, null, this.isDupeCity());                          // controllato TUTTI i validatori sincroni quindi dopo
-    this.loadData();                                      // tutti i Validators.required
+    }, null, this.isDupeCity());                   // controllato TUTTI i validatori sincroni quindi dopo
+    this.loadData();                                            // tutti i Validators.required
   }
 
 
