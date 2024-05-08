@@ -1,28 +1,26 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
 using WorldCities.Server.Data;
+using WorldCities.Server.Data.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-
-
-// Add Serilog support
-//builder.Host.UseSerilog((ctx, lc) => lc
-//    .ReadFrom.Configuration(ctx.Configuration)
-//    .WriteTo.MSSqlServer(connectionString: ctx.Configuration.GetConnectionString("DefaultConnection"),
-//        restrictedToMinimumLevel: LogEventLevel.Information, 
-//        sinkOptions: new MSSqlServerSinkOptions
-//        {
-//            TableName = "LogEvents",
-//            AutoCreateSqlDatabase = true
-//        }).WriteTo.Console());
-
-
+// TODO: Add Asp.Net core Identity support
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 8;
+}).AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
