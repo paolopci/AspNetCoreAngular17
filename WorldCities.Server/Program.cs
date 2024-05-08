@@ -37,6 +37,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddScoped<JwtHandler>();
+
 var app = builder.Build();
 
 // Serilog Logging HTTP requests
