@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldCities.Server", "WorldCities.Server\WorldCities.Server.csproj", "{2E73ACCF-FA22-45EF-A847-8815986595BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldCities.Server", "WorldCities.Server\WorldCities.Server.csproj", "{2E73ACCF-FA22-45EF-A847-8815986595BD}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "worldcities.client", "worldcities.client\worldcities.client.esproj", "{E74AC674-457E-4F9F-B21E-3D1B2A6C5403}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldCities.Server.Tests", "WorldCities.Server.Tests\WorldCities.Server.Tests.csproj", "{1AB8711B-7EBF-475F-8637-CB91F96332D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{E74AC674-457E-4F9F-B21E-3D1B2A6C5403}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E74AC674-457E-4F9F-B21E-3D1B2A6C5403}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E74AC674-457E-4F9F-B21E-3D1B2A6C5403}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{1AB8711B-7EBF-475F-8637-CB91F96332D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AB8711B-7EBF-475F-8637-CB91F96332D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AB8711B-7EBF-475F-8637-CB91F96332D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AB8711B-7EBF-475F-8637-CB91F96332D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
