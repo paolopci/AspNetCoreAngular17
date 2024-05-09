@@ -26,7 +26,7 @@ namespace WorldCities.Server.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(ApiLoginRequest loginRequest)
         {
-            var user = await _userManager.FindByNameAsync(loginRequest.email);
+            var user = await _userManager.FindByNameAsync(loginRequest.Email);
             if (user == null || !await _userManager.CheckPasswordAsync(user, loginRequest.Password))
             {
                 return Unauthorized(new ApiLoginResult()
