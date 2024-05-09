@@ -212,7 +212,8 @@ namespace WorldCities.Server.Controllers
                     Email = email_User
                 };
                 // insert the standard user into the DB
-                await _userManager.CreateAsync(user_User, _configuration["DefaultPasswords:RegisteredUser"]);
+              //  await _userManager.CreateAsync(user_User, _configuration["DefaultPasswords:RegisteredUser"]);
+                await _userManager.CreateAsync(user_User, "PaoloPCI@Admin65");
                 // assign the "RegisteredUser" role
                 await _userManager.AddToRoleAsync(user_User, role_RegisteredUser);
                 // confirm the email and remove lockout
@@ -224,8 +225,14 @@ namespace WorldCities.Server.Controllers
 
             if (addedUserList.Count > 0)
             {
-
+                await _context.SaveChangesAsync();
             }
+
+            return new JsonResult(new
+            {
+                Count = addedUserList.Count,
+                Users = addedUserList
+            });
         }
     }
 }
