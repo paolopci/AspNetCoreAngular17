@@ -1,4 +1,5 @@
 ﻿using System.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ namespace WorldCities.Server.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize(Roles = "Administrator")]
     public class SeedController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -212,7 +214,7 @@ namespace WorldCities.Server.Controllers
                     Email = email_User
                 };
                 // insert the standard user into the DB
-              //  await _userManager.CreateAsync(user_User, _configuration["DefaultPasswords:RegisteredUser"]);
+                //  await _userManager.CreateAsync(user_User, _configuration["DefaultPasswords:RegisteredUser"]);
                 await _userManager.CreateAsync(user_User, "PaoloPCI@Admin65");
                 // assign the "RegisteredUser" role
                 await _userManager.AddToRoleAsync(user_User, role_RegisteredUser);
