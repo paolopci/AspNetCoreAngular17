@@ -1,10 +1,11 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, tap, BehaviorSubject} from "rxjs";
 import {environment} from "../../environments/environment";
 import {LoginRequest} from "./login-request";
 import {LoginResult} from "./login-result";
-import {tap} from "rxjs/operators";
+
+//import {} from "rxjs/operators";
 
 
 @Injectable({
@@ -16,7 +17,9 @@ export class AuthService {
   }
 
   // key per salvare i dati nel localstorage
-  public tokenKey: string = 'token';
+  private tokenKey: string = 'token';
+  private _authStatus = new BehaviorSubject<boolean>(false);// valore iniziale
+  public authStatus = this._authStatus.asObservable();
 
   isAuthenticated(): boolean {
     return this.getToken() !== null;
@@ -28,12 +31,30 @@ export class AuthService {
 
   login(item: LoginRequest): Observable<LoginResult> {
     var url = environment.baseUrl + 'api/Account/Login';
-    return this.http.post<LoginResult>(url, item).pipe(
-      tap(loginResult => {
-        if (loginResult.success && loginResult.token) {
-          localStorage.setItem(this.tokenKey, loginResult.token);
-        }
-      })
-    );
+    return this.http.post<LoginResult>(url, item)
+      .pipe(
+        tap(loginResult => {
+          if (loginResult.success && loginResult.token) {
+            localStorage.setItem(this.tokenKey, loginResult.token);
+            this.setAuthStatus(true);
+          }
+        })
+      );
+  }
+
+  logout() {
+    localStorage.removeItem(this.tokenKey);
+    this.setAuthStatus(false);
+  }
+
+
+  init(): void {
+    if (this.isAuthenticated()) {
+      this.setAuthStatus(true);
+    }
+  }
+
+  private setAuthStatus(isAuthenticated: boolean) {
+    this._authStatus.next(isAuthenticated);
   }
 }
