@@ -25,6 +25,7 @@ import {CountryEditComponent} from './countries/country-edit.component';
 import {CityService} from "./cities/city.service";
 import {CountryService} from "./countries/country.service";
 import {copyArrayItem} from "@angular/cdk/drag-drop";
+import { LoginComponent } from './auth/login.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {copyArrayItem} from "@angular/cdk/drag-drop";
     ChildComponent,
     CountriesComponent,
     CityEditComponent,
-    CountryEditComponent
+    CountryEditComponent,
+    LoginComponent
   ],
   imports: [
     BrowserAnimationsModule,

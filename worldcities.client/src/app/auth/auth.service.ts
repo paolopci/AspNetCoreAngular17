@@ -15,6 +15,7 @@ export class AuthService {
   constructor(protected http: HttpClient) {
   }
 
+  // key per salvare i dati nel localstorage
   public tokenKey: string = 'token';
 
   isAuthenticated(): boolean {
