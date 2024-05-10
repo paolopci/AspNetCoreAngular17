@@ -1,4 +1,3 @@
-import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
@@ -14,7 +13,8 @@ import {CitiesComponent} from './cities/cities.component';
 import {AngularMaterialModule} from './angular-material.module';
 import {ChildComponent} from './child/child.component';
 import {CountriesComponent} from './countries/countries.component';
-
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {AuthInterceptor} from './auth/auth.interceptor'
 
 // Cap 7 reactive forms!!!!!
 import {ReactiveFormsModule} from '@angular/forms';
@@ -24,8 +24,7 @@ import {DecimalPipe, CommonModule} from '@angular/common';
 import {CountryEditComponent} from './countries/country-edit.component';
 import {CityService} from "./cities/city.service";
 import {CountryService} from "./countries/country.service";
-import {copyArrayItem} from "@angular/cdk/drag-drop";
-import { LoginComponent } from './auth/login.component';
+import {LoginComponent} from './auth/login.component';
 
 
 @NgModule({
@@ -52,7 +51,15 @@ import { LoginComponent } from './auth/login.component';
     CommonModule
   ],
   providers: [
-    provideAnimationsAsync(), CityService, CountryService
+    // provideAnimationsAsync(),
+    // CityService,
+    // CountryService,
+    // AuthInterceptor
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
