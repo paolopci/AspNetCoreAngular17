@@ -5,8 +5,6 @@ import {environment} from "../../environments/environment";
 import {LoginRequest} from "./login-request";
 import {LoginResult} from "./login-result";
 
-//import {} from "rxjs/operators";
-
 
 @Injectable({
   providedIn: 'root',
