@@ -11,6 +11,7 @@ import {AuthService} from "../auth/auth.service";
 })
 export class NavMenuComponent implements OnInit, OnDestroy {
 
+  public user!:string;
   private destroySubject = new Subject();
   isLoggedIn: boolean = false;
 
@@ -20,6 +21,7 @@ export class NavMenuComponent implements OnInit, OnDestroy {
         takeUntil(this.destroySubject)
       ).subscribe(result => {
       this.isLoggedIn = result;
+      this.user=<string>authService.getUserLogin();
     })
   }
 

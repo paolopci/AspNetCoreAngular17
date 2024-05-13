@@ -7,17 +7,19 @@ import {CityEditComponent} from './cities/city-edit.component';
 import {NgbdTableComplete} from './complete/table-complete';
 import {CountryEditComponent} from "./countries/country-edit.component";
 import {LoginComponent} from "./auth/login.component";
+// implemento Guards
+import {AuthGuard} from "./auth/auth.guard";
 
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'cities', component: CitiesComponent},
-  {path: 'city/:id', component: CityEditComponent},
-  {path: 'city', component: CityEditComponent},
+  {path: 'city/:id', component: CityEditComponent, canActivate: [AuthGuard]},
+  {path: 'city', component: CityEditComponent, canActivate: [AuthGuard]},
   {path: 'countries', component: CountriesComponent},
-  {path: 'country/:id', component: CountryEditComponent},
-  {path: 'country', component: CountryEditComponent}
+  {path: 'country/:id', component: CountryEditComponent, canActivate: [AuthGuard]},
+  {path: 'country', component: CountryEditComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

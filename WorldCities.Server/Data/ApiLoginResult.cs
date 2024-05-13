@@ -16,5 +16,7 @@
         /// The JWT token if the login attempt is successful, or NULL if not
         /// </summary>
         public string? Token { get; set; }
+
+        public string? UserName { get; set; }
     }
 }

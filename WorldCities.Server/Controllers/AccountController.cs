@@ -42,7 +42,8 @@ namespace WorldCities.Server.Controllers
             {
                 Success = true,
                 Message = "Login successful",
-                Token = jwt
+                Token = jwt,
+                UserName = user.UserName
             });
         }
     }

@@ -16,8 +16,10 @@ export class AuthService {
 
   // key per salvare i dati nel localstorage
   private tokenKey: string = 'token';
+  private userKey: string = 'user';
   private _authStatus = new BehaviorSubject<boolean>(false);// valore iniziale
   public authStatus = this._authStatus.asObservable();
+
 
   isAuthenticated(): boolean {
     return this.getToken() !== null;
@@ -27,6 +29,11 @@ export class AuthService {
     return localStorage.getItem(this.tokenKey);
   }
 
+  getUserLogin(): string | null {
+    // prendo userName dallo localStorage per usarlo in nav-bar
+    return localStorage.getItem(this.userKey);
+  }
+
   login(item: LoginRequest): Observable<LoginResult> {
     var url = environment.baseUrl + 'api/Account/Login';
     return this.http.post<LoginResult>(url, item)
@@ -34,6 +41,8 @@ export class AuthService {
         tap(loginResult => {
           if (loginResult.success && loginResult.token) {
             localStorage.setItem(this.tokenKey, loginResult.token);
+            // salvo lo userName nel localStorage per usarlo in nav-bar
+            localStorage.setItem(this.userKey, <string>loginResult.userName);
             this.setAuthStatus(true);
           }
         })
@@ -43,6 +52,7 @@ export class AuthService {
   logout() {
     // rimuovo il token da localStorage
     localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.userKey);
     this.setAuthStatus(false);
   }
 
