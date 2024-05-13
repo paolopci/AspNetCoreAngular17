@@ -52,6 +52,7 @@ export class AuthService {
   logout() {
     // rimuovo il token da localStorage
     localStorage.removeItem(this.tokenKey);
+    // rimuovo lo username da localstorage
     localStorage.removeItem(this.userKey);
     this.setAuthStatus(false);
   }
