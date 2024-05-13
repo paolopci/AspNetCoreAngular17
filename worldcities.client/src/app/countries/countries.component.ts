@@ -7,6 +7,7 @@ import {Subject} from "rxjs";
 import {debounceTime, distinctUntilChanged} from "rxjs/operators";
 import {CountryService} from "./country.service";
 import { MatTableDataSource } from '@angular/material/table';
+import {AuthService} from "../auth/auth.service";
 
 
 @Component({
@@ -17,6 +18,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class CountriesComponent implements OnInit {
   //public countries!: MatTableDataSource<Country>;
   public countries!: MatTableDataSource<Country>;
+  public isAuthenticated = false;
   public displayedColumns: string[] = ['id', 'name', 'iso2', 'iso3', 'totCities'];
   // valori di default
   defaultPageIndex: number = 0;
@@ -32,11 +34,12 @@ export class CountriesComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort
   filterTextChanged: Subject<string> = new Subject<string>();
 
-  constructor(private countryService: CountryService) {
+  constructor(private countryService: CountryService,private authService: AuthService) {
   }
 
   ngOnInit(): void {
     this.loadData();
+    this.isAuthenticated=this.authService.isAuthenticated();
   }
 
   loadData(query?: string) {

@@ -2,7 +2,7 @@
   <h1>Countries</h1>
   <p>Here's a list of countries free to play with it.</p>
   <p *ngIf="!countries"><img src="/assets/img/Loading30.gif" alt="animated Loading"></p>
-  <button mat-flat-button color="primary" class="btn-add" *ngIf="countries" [routerLink]="['/country']">Add new Country</button>
+  <button mat-flat-button color="primary" class="btn-add" *ngIf="countries && isAuthenticated" [routerLink]="['/country']">Add new Country</button>
   <mat-form-field [hidden]="!countries">
     <input matInput #filter (keyup)="onFilterTextChanged(filter.value)" placeholder="Filter by name (or part of it)...">
   </mat-form-field>
@@ -15,7 +15,10 @@
     </ng-container>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="">Name</th>
-      <td mat-cell *matCellDef="let country">{{ country.name }}</td>
+      <td mat-cell *matCellDef="let country">
+        <a [routerLink]="['/country', country.id]">{{country.name}}</a>
+<!--        {{ country.name }}-->
+      </td>
     </ng-container>
     <ng-container matColumnDef="iso2">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="">ISO2</th>
