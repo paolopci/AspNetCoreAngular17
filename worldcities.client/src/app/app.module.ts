@@ -22,8 +22,8 @@ import {CityEditComponent} from './cities/city-edit.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DecimalPipe, CommonModule} from '@angular/common';
 import {CountryEditComponent} from './countries/country-edit.component';
-import {CityService} from "./cities/city.service";
-import {CountryService} from "./countries/country.service";
+// import {CityService} from "./cities/city.service";
+// import {CountryService} from "./countries/country.service";
 import {LoginComponent} from './auth/login.component';
 
 
